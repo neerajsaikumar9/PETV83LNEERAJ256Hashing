@@ -1,0 +1,164 @@
+<?php session_start(); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <script src="starry.js" defer></script>
+  <style>
+    .form-card {
+      background: rgba(20, 30, 48, 0.98);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      padding: 2.5rem 2rem 2rem 2rem;
+      max-width: 400px;
+      margin: 4rem auto 2rem auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .input-group {
+      position: relative;
+      margin-bottom: 1.2rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 1.1rem 2.7rem 1.1rem 2.5rem;
+      border-radius: 10px;
+      border: none;
+      background: #222b3a;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: box-shadow 0.2s;
+      box-sizing: border-box;
+    }
+    .input-group input:focus {
+      box-shadow: 0 0 0 2px #1e90ff;
+    }
+    .input-group label {
+      position: absolute;
+      left: 2.5rem;
+      top: 1.1rem;
+      color: #aaa;
+      font-size: 1rem;
+      pointer-events: none;
+      transition: 0.2s;
+      background: transparent;
+    }
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -0.7rem;
+      left: 2.2rem;
+      font-size: 0.85rem;
+      color: #90caf9;
+      background: #222b3a;
+      padding: 0 0.3rem;
+      border-radius: 5px;
+    }
+    .input-group .fa {
+      position: absolute;
+      left: 0.9rem;
+      top: 1.2rem;
+      color: #90caf9;
+      font-size: 1.1rem;
+      z-index: 2;
+    }
+    .input-group .show-hide {
+      position: absolute;
+      right: 0.7rem;
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      color: #90caf9;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 0;
+      z-index: 2;
+      width: 2rem;
+      justify-content: center;
+    }
+    .google-btn {
+      background: #fff;
+      color: #222b3a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 0.7rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      transition: background 0.2s;
+    }
+    .google-btn:hover {
+      background: #e3e3e3;
+    }
+    @media (max-width: 500px) {
+      .form-card { padding: 1.2rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+<?php if (isset($_SESSION['username'])): ?>
+  <div style="text-align:center;margin-top:2rem;"><a href="home.php" style="color:#1e90ff;font-weight:600;">Go to Dashboard</a></div>
+<?php endif; ?>
+  <h2>Register</h2>
+  <form class="form-card" action="register.php" method="post">
+    <h2 style="text-align:center;margin-bottom:1.5rem;color:#fff;">Register</h2>
+    <div class="input-group">
+      <i class="fa fa-user"></i>
+      <input name="first_name" type="text" required placeholder=" " autocomplete="given-name">
+      <label>First Name</label>
+    </div>
+    <div class="input-group">
+      <i class="fa fa-user"></i>
+      <input name="last_name" type="text" required placeholder=" " autocomplete="family-name">
+      <label>Last Name</label>
+    </div>
+    <div class="input-group">
+      <i class="fa fa-at"></i>
+      <input name="username" type="text" required placeholder=" " autocomplete="username">
+      <label>Username</label>
+    </div>
+    <div class="input-group">
+      <i class="fa fa-lock"></i>
+      <input name="password" id="password" type="password" required placeholder=" " autocomplete="new-password">
+      <label>Password</label>
+      <button type="button" class="show-hide" onclick="togglePassword()"><i class="fa fa-eye" id="eye"></i></button>
+    </div>
+    <button type="submit" style="margin-top:0.5rem;">Register</button>
+    <button type="button" class="google-btn" onclick="window.location.href='google-signin.php'">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="height:20px;vertical-align:middle;"> Sign in with Google
+    </button>
+    <p style="text-align:center;margin-top:1rem;">Already have an account? <a href="login.html">Login here</a></p>
+  </form>
+  <script>
+    function togglePassword() {
+      var pwd = document.getElementById('password');
+      var eye = document.getElementById('eye');
+      if (pwd.type === 'password') {
+        pwd.type = 'text';
+        eye.classList.remove('fa-eye');
+        eye.classList.add('fa-eye-slash');
+      } else {
+        pwd.type = 'password';
+        eye.classList.remove('fa-eye-slash');
+        eye.classList.add('fa-eye');
+      }
+    }
+  </script>
+</body>
+</html> 
